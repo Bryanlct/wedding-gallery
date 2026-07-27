@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-wedding-primary: #4c1d95;
+  --color-wedding-primary-light: #6d28d9;
+  --color-wedding-bg: #f5f3ff;
+  --color-wedding-bg-alt: #faf5ff;
+  --color-wedding-accent: #d4a574;
+  --color-wedding-accent-soft: #e9d5ff;
+  --color-wedding-gold: #c9a96e;
+  --font-serif: "Georgia", "Times New Roman", serif;
+}
+
+body {
+  background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 40%, #312e81 100%);
+  color: #1e1b4b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.card-elegant {
+  box-shadow:
+    0 1px 2px rgba(76, 29, 149, 0.04),
+    0 4px 12px rgba(76, 29, 149, 0.06);
+}
+
+.card-elegant:hover {
+  box-shadow:
+    0 2px 4px rgba(76, 29, 149, 0.06),
+    0 8px 24px rgba(76, 29, 149, 0.1);
+}
+
+@keyframes border-pulse {
+  0%, 100% { border-color: rgba(109, 40, 217, 0.3); }
+  50% { border-color: rgba(109, 40, 217, 0.6); }
+}
+
+.upload-zone {
+  animation: border-pulse 3s ease-in-out infinite;
+}
+
+.nav-shadow {
+  box-shadow: 0 -4px 24px rgba(76, 29, 149, 0.08);
+}
