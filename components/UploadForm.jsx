@@ -68,7 +68,7 @@ export default function UploadForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6 px-5 py-6">
+    <form onSubmit={handleSubmit} className="page-content mx-auto flex max-w-2xl flex-col gap-6 py-6 md:gap-8 md:py-8">
       {success && (
         <div className="flex items-center gap-3 border border-luxury-gold/30 bg-luxury-ivory px-4 py-3.5 text-sm text-luxury-charcoal">
           <Check className="h-4 w-4 text-luxury-gold" strokeWidth={1.5} />
@@ -77,16 +77,16 @@ export default function UploadForm() {
       )}
 
       {/* 雙按鈕：相簿 vs 相機 */}
-      <div className="border border-dashed border-luxury-parchment bg-white px-5 py-10">
-        <p className="mb-6 text-center font-[family-name:var(--font-cormorant)] text-sm tracking-[0.15em] text-luxury-charcoal">
+      <div className="border border-dashed border-luxury-parchment bg-white px-5 py-10 md:px-8 md:py-12">
+        <p className="mb-6 text-center font-[family-name:var(--font-cormorant)] text-sm tracking-[0.15em] text-luxury-charcoal md:text-base">
           Share Your Moments
         </p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="mx-auto grid max-w-lg grid-cols-2 gap-3 md:max-w-xl md:gap-4">
           <button
             type="button"
             onClick={() => galleryInputRef.current?.click()}
             disabled={isUploading}
-            className="btn-luxury-outline flex flex-col items-center gap-3 px-4 py-6 disabled:opacity-40"
+            className="btn-luxury-outline flex flex-col items-center gap-3 px-4 py-6 disabled:opacity-40 md:py-8"
           >
             <ImageIcon
               className="h-6 w-6 text-luxury-gold-muted"
@@ -102,7 +102,7 @@ export default function UploadForm() {
             type="button"
             onClick={() => cameraInputRef.current?.click()}
             disabled={isUploading}
-            className="btn-luxury-outline flex flex-col items-center gap-3 px-4 py-6 disabled:opacity-40"
+            className="btn-luxury-outline flex flex-col items-center gap-3 px-4 py-6 disabled:opacity-40 md:py-8"
           >
             <Camera
               className="h-6 w-6 text-luxury-gold-muted"
@@ -141,7 +141,7 @@ export default function UploadForm() {
           <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-luxury-stone">
             {previews.length} selected
           </p>
-          <div className="grid grid-cols-3 gap-1.5">
+          <div className="grid grid-cols-3 gap-1.5 md:grid-cols-4 lg:grid-cols-5">
             {previews.map((preview) => (
               <div key={preview.id} className="relative aspect-square">
                 <img

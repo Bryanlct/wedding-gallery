@@ -28,10 +28,13 @@ export default function RootLayout({ children }) {
       <body className="min-h-dvh font-[family-name:var(--font-inter)] font-light antialiased">
         <div className="pointer-events-none fixed inset-0 bg-luxury-ink">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_30%,rgba(196,163,90,0.07),transparent_55%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(58,47,53,0.12),transparent_50%)]" />
         </div>
 
-        <div className="relative mx-auto min-h-dvh max-w-md overflow-hidden bg-luxury-cream shadow-[0_0_60px_rgba(0,0,0,0.4)] ring-1 ring-luxury-gold/15">
-          <main className="texture-linen pb-[5.5rem]">{children}</main>
+        <div className="app-shell">
+          <main className="texture-linen pb-[5.5rem] md:pb-[6rem]">
+            {children}
+          </main>
           <BottomNav />
         </div>
       </body>

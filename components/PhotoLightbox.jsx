@@ -89,7 +89,7 @@ export default function PhotoLightbox({
         <img
           src={photo.image_url}
           alt={photo.user_name || "Wedding photo"}
-          className="max-h-[62dvh] max-w-full object-contain"
+          className="max-h-[70dvh] max-w-full object-contain md:max-h-[75dvh] lg:max-h-[80dvh]"
         />
 
         {hasNext && (

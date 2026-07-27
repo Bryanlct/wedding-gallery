@@ -30,8 +30,8 @@ export default function PhotoFeed() {
     <div className="flex flex-col">
       <WeddingHeader title={WEDDING.tagline} />
 
-      <div className="space-y-4 px-5 py-5">
-        <div className="relative">
+      <div className="page-content space-y-4 py-5 md:py-6">
+        <div className="relative mx-auto max-w-xl md:max-w-2xl">
           <Search
             className="absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-luxury-stone-light"
             strokeWidth={1.5}
@@ -41,11 +41,11 @@ export default function PhotoFeed() {
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="input-luxury w-full py-3 pl-10 pr-4 text-sm text-luxury-charcoal placeholder:text-luxury-stone-light/60"
+            className="input-luxury w-full py-3 pl-10 pr-4 text-sm text-luxury-charcoal placeholder:text-luxury-stone-light/60 md:py-3.5 md:text-base"
           />
         </div>
 
-        <div className="scrollbar-hide flex justify-center gap-6">
+        <div className="mx-auto flex max-w-md justify-center gap-6 md:max-w-none md:gap-10">
           {filters.map((filter) => (
             <button
               key={filter.key}
@@ -82,7 +82,7 @@ export default function PhotoFeed() {
       )}
 
       {!loading && photos.length > 0 && (
-        <div className="grid grid-cols-2 gap-3 px-5 pb-6">
+        <div className="page-content grid grid-cols-2 gap-3 pb-6 sm:grid-cols-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-5">
           {photos.map((photo, index) => {
             const displayName = photo.user_name || "Guest";
             return (

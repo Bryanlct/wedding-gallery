@@ -40,8 +40,8 @@ export default function BottomNav() {
   const isGallery = pathname.startsWith("/download");
 
   return (
-    <nav className="nav-luxury fixed bottom-0 left-0 right-0 z-50 border-t border-luxury-gold/15 bg-luxury-cream/98 backdrop-blur-md">
-      <div className="relative mx-auto max-w-md">
+    <nav className="nav-luxury absolute bottom-0 left-0 right-0 z-50 border-t border-luxury-gold/15 bg-luxury-cream/98 backdrop-blur-md">
+      <div className="relative w-full">
         {/* 中央 Upload 按鈕 — 絕對置中 */}
         <Link
           href="/upload"
@@ -49,7 +49,7 @@ export default function BottomNav() {
           aria-label="Upload"
         >
           <div
-            className={`flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-full border-2 shadow-md transition-all active:scale-95 ${
+            className={`flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-full border-2 shadow-md transition-all active:scale-95 md:h-14 md:w-14 ${
               isUpload
                 ? "border-luxury-gold bg-luxury-charcoal shadow-black/25"
                 : "border-luxury-gold/50 bg-luxury-charcoal shadow-black/15"
@@ -63,7 +63,7 @@ export default function BottomNav() {
         </Link>
 
         {/* 三等分 Grid 確保左右對稱 */}
-        <div className="grid h-[3.75rem] grid-cols-3 items-end px-6">
+        <div className="grid h-[3.75rem] grid-cols-3 items-end px-6 md:h-[4rem] md:px-10 lg:px-16">
           <NavItem href="/" label="Feed" icon={Images} isActive={isFeed} />
 
           {/* 中欄只放 Upload 標籤，與圓形按鈕對齊 */}

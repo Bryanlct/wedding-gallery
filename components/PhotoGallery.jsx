@@ -56,7 +56,7 @@ export default function PhotoGallery() {
       )}
 
       {!loading && photos.length > 0 && (
-        <div className="grid grid-cols-3 gap-px bg-luxury-parchment/40 p-px">
+        <div className="grid grid-cols-3 gap-px bg-luxury-parchment/40 p-px md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {photos.map((photo, index) => (
             <div
               key={photo.id}
