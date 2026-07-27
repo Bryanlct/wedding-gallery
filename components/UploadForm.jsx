@@ -2,12 +2,13 @@
 
 import { useCallback, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Camera, X, Loader2, Check } from "lucide-react";
+import { Camera, ImageIcon, X, Loader2, Check } from "lucide-react";
 import { uploadPhoto } from "@/utils/uploadPhoto";
 
 export default function UploadForm() {
   const router = useRouter();
-  const fileInputRef = useRef(null);
+  const galleryInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
   const [previews, setPreviews] = useState([]);
   const [userName, setUserName] = useState("");
   const [message, setMessage] = useState("");
@@ -27,8 +28,7 @@ export default function UploadForm() {
 
     setPreviews((prev) => [...prev, ...newPreviews]);
     setSuccess(false);
-
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    e.target.value = "";
   }, []);
 
   const removePreview = useCallback((id) => {
@@ -76,30 +76,61 @@ export default function UploadForm() {
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={() => fileInputRef.current?.click()}
-        disabled={isUploading}
-        className="flex flex-col items-center gap-5 border border-dashed border-luxury-parchment bg-white px-6 py-16 transition-colors hover:border-luxury-gold/50 hover:bg-luxury-warm disabled:opacity-40"
-      >
-        <div className="flex h-14 w-14 items-center justify-center border border-luxury-gold/30">
-          <Camera className="h-6 w-6 text-luxury-gold-muted" strokeWidth={1.25} />
-        </div>
-        <div className="text-center">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-luxury-charcoal">
-            Select Photos
-          </p>
-          <p className="mt-2 text-[11px] tracking-wide text-luxury-stone">
-            Tap to capture or choose from gallery
-          </p>
-        </div>
-      </button>
+      {/* 雙按鈕：相簿 vs 相機 */}
+      <div className="border border-dashed border-luxury-parchment bg-white px-5 py-10">
+        <p className="mb-6 text-center font-[family-name:var(--font-cormorant)] text-sm tracking-[0.15em] text-luxury-charcoal">
+          Share Your Moments
+        </p>
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => galleryInputRef.current?.click()}
+            disabled={isUploading}
+            className="btn-luxury-outline flex flex-col items-center gap-3 px-4 py-6 disabled:opacity-40"
+          >
+            <ImageIcon
+              className="h-6 w-6 text-luxury-gold-muted"
+              strokeWidth={1.25}
+            />
+            <span>Photo Library</span>
+            <span className="normal-case tracking-normal text-[10px] text-luxury-stone">
+              從相簿選取
+            </span>
+          </button>
 
+          <button
+            type="button"
+            onClick={() => cameraInputRef.current?.click()}
+            disabled={isUploading}
+            className="btn-luxury-outline flex flex-col items-center gap-3 px-4 py-6 disabled:opacity-40"
+          >
+            <Camera
+              className="h-6 w-6 text-luxury-gold-muted"
+              strokeWidth={1.25}
+            />
+            <span>Take Photo</span>
+            <span className="normal-case tracking-normal text-[10px] text-luxury-stone">
+              即時拍攝
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* 相簿選取 — 不帶 capture，可選圖庫 */}
       <input
-        ref={fileInputRef}
+        ref={galleryInputRef}
         type="file"
         accept="image/*"
         multiple
+        className="hidden"
+        onChange={handleFileSelect}
+      />
+
+      {/* 相機拍攝 — 僅此 input 帶 capture */}
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/*"
         capture="environment"
         className="hidden"
         onChange={handleFileSelect}

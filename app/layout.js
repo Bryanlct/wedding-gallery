@@ -26,14 +26,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="zh-TW" className={`${cormorant.variable} ${inter.variable}`}>
       <body className="min-h-dvh font-[family-name:var(--font-inter)] font-light antialiased">
-        {/* 桌面外框氛圍 */}
-        <div className="pointer-events-none fixed inset-0 bg-[#141210]">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(181,160,103,0.06),transparent_60%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,rgba(58,47,53,0.15),transparent_50%)]" />
+        <div className="pointer-events-none fixed inset-0 bg-luxury-ink">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_30%,rgba(196,163,90,0.07),transparent_55%)]" />
         </div>
 
-        <div className="relative mx-auto min-h-dvh max-w-md overflow-hidden bg-luxury-cream shadow-[0_0_80px_rgba(0,0,0,0.5)] ring-1 ring-luxury-gold/10">
-          <main className="texture-linen pb-24">{children}</main>
+        <div className="relative mx-auto min-h-dvh max-w-md overflow-hidden bg-luxury-cream shadow-[0_0_60px_rgba(0,0,0,0.4)] ring-1 ring-luxury-gold/15">
+          <main className="texture-linen pb-[5.5rem]">{children}</main>
           <BottomNav />
         </div>
       </body>
