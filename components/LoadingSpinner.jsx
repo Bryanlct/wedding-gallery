@@ -1,8 +1,10 @@
-export default function LoadingSpinner({ label = "載入中..." }) {
+export default function LoadingSpinner({ label = "Loading" }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 py-16">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-purple-200 border-t-wedding-primary" />
-      <p className="text-sm text-purple-400">{label}</p>
+    <div className="flex flex-col items-center gap-4 py-20">
+      <div className="h-px w-12 animate-pulse bg-luxury-gold/40" />
+      <p className="text-[10px] uppercase tracking-[0.25em] text-luxury-stone">
+        {label}
+      </p>
     </div>
   );
 }

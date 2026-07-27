@@ -7,47 +7,48 @@ export default function WeddingHeader({
   compact = false,
 }) {
   return (
-    <header className="relative overflow-hidden bg-gradient-to-br from-wedding-primary via-[#5b21b6] to-wedding-primary-light px-4 text-white">
-      {/* 裝飾光暈 */}
-      <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
-      <div className="pointer-events-none absolute -bottom-6 -left-6 h-24 w-24 rounded-full bg-wedding-accent/20 blur-xl" />
+    <header className="relative bg-luxury-charcoal px-6 text-luxury-cream">
+      {/* 頂部金色細線 */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent" />
 
-      <div
-        className={`relative text-center ${compact ? "py-4" : "py-6"}`}
-      >
+      <div className={`relative text-center ${compact ? "py-5" : "py-8"}`}>
         {showDetails && (
           <>
-            <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-purple-200/80">
+            <p className="text-[9px] font-medium uppercase tracking-[0.35em] text-luxury-gold-light/70">
               {WEDDING.dateEn}
             </p>
-            <p className="mt-1 font-[family-name:var(--font-playfair)] text-2xl font-semibold tracking-wide">
+            <h1 className="mt-2 font-[family-name:var(--font-cormorant)] text-3xl font-light tracking-[0.08em] text-luxury-cream">
               {WEDDING.couple}
+            </h1>
+            <p className="mt-1.5 text-[10px] uppercase tracking-[0.25em] text-luxury-stone-light/80">
+              {WEDDING.venueEn}
             </p>
-            <p className="mt-0.5 text-xs text-purple-200/70">
-              {WEDDING.venue}
-            </p>
-            <div className="mx-auto my-3 flex items-center justify-center gap-2">
-              <span className="h-px w-10 bg-gradient-to-r from-transparent to-wedding-accent/60" />
-              <span className="text-wedding-accent">✦</span>
-              <span className="h-px w-10 bg-gradient-to-l from-transparent to-wedding-accent/60" />
+
+            <div className="luxury-divider mx-auto my-5 max-w-[200px]">
+              <span className="text-[10px] text-luxury-gold">◆</span>
             </div>
           </>
         )}
 
         {title && (
-          <h1
-            className={`font-[family-name:var(--font-playfair)] font-semibold tracking-wide ${
-              showDetails ? "text-lg" : "text-xl"
+          <p
+            className={`font-[family-name:var(--font-cormorant)] font-light tracking-[0.15em] text-luxury-gold-light ${
+              showDetails ? "text-base uppercase" : "text-xl"
             }`}
           >
             {title}
-          </h1>
+          </p>
         )}
 
         {subtitle && (
-          <p className="mt-1 text-xs text-purple-200/80">{subtitle}</p>
+          <p className="mt-2 text-[11px] tracking-wide text-luxury-stone-light/70">
+            {subtitle}
+          </p>
         )}
       </div>
+
+      {/* 底部金色細線 */}
+      <div className="h-px bg-gradient-to-r from-transparent via-luxury-gold/30 to-transparent" />
     </header>
   );
 }

@@ -1,0 +1,2 @@
+# 部署前請確認 .env.local 已設定（不會被 git 追蹤）
+.vercel

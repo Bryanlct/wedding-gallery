@@ -29,29 +29,32 @@ export default function PhotoFeed() {
 
   return (
     <div className="flex flex-col">
-      <WeddingHeader title={`${WEDDING.tagline} ❤️`} />
+      <WeddingHeader title={WEDDING.tagline} />
 
-      <div className="space-y-3 px-4 py-4">
+      <div className="space-y-4 px-5 py-5">
         <div className="relative">
-          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-purple-400" />
+          <Search
+            className="absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-luxury-stone-light"
+            strokeWidth={1.5}
+          />
           <input
             type="search"
-            placeholder="Search photos..."
+            placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-full border border-purple-100 bg-white py-3 pl-10 pr-4 text-sm text-purple-900 shadow-sm placeholder:text-purple-300 focus:border-wedding-primary-light focus:outline-none focus:ring-2 focus:ring-purple-200/60"
+            className="input-luxury w-full py-3 pl-10 pr-4 text-sm text-luxury-charcoal placeholder:text-luxury-stone-light/60"
           />
         </div>
 
-        <div className="scrollbar-hide flex gap-2 overflow-x-auto pb-1">
+        <div className="scrollbar-hide flex gap-1 overflow-x-auto">
           {filters.map((filter) => (
             <button
               key={filter.key}
               onClick={() => setActiveFilter(filter.key)}
-              className={`shrink-0 rounded-full px-5 py-2 text-xs font-semibold tracking-wide transition-all ${
+              className={`shrink-0 px-4 py-2 text-[10px] uppercase tracking-[0.15em] transition-all ${
                 activeFilter === filter.key
-                  ? "bg-gradient-to-r from-wedding-primary to-wedding-primary-light text-white shadow-md shadow-purple-900/20"
-                  : "bg-white text-purple-600 shadow-sm ring-1 ring-purple-100 hover:bg-purple-50"
+                  ? "border-b border-luxury-gold font-medium text-luxury-charcoal"
+                  : "text-luxury-stone hover:text-luxury-charcoal"
               }`}
             >
               {filter.label}
@@ -63,75 +66,73 @@ export default function PhotoFeed() {
       {loading && <LoadingSpinner />}
 
       {error && (
-        <div className="mx-4 rounded-2xl bg-red-50 px-4 py-3 text-center text-sm text-red-600 ring-1 ring-red-100">
+        <div className="mx-5 border border-red-200/60 bg-red-50/50 px-4 py-3 text-center text-sm text-red-700">
           {error}
-          <p className="mt-1 text-xs text-red-400">
-            請確認 Supabase 環境變數與資料表已正確設定
-          </p>
         </div>
       )}
 
       {!loading && !error && photos.length === 0 && (
         <EmptyState
-          title={search ? "找不到符合的照片" : "尚無照片"}
+          title={search ? "No results" : "No moments yet"}
           description={
             search
-              ? "試試其他關鍵字"
-              : "成為第一個分享美好時刻的人吧！"
+              ? "Try a different search"
+              : "Be the first to share a cherished moment"
           }
         />
       )}
 
       {!loading && photos.length > 0 && (
-        <div className="grid grid-cols-2 gap-3 px-4 pb-20">
+        <div className="grid grid-cols-2 gap-3 px-5 pb-20">
           {photos.map((photo, index) => {
             const displayName = photo.user_name || "Guest";
             return (
               <article
                 key={photo.id}
                 onClick={() => setLightboxIndex(index)}
-                className="card-elegant group cursor-pointer overflow-hidden rounded-2xl bg-white ring-1 ring-purple-50 transition-all duration-300 active:scale-[0.98]"
+                className="card-luxury group cursor-pointer overflow-hidden bg-white"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-purple-50">
+                <div className="relative aspect-[3/4] overflow-hidden bg-luxury-ivory">
                   <img
                     src={photo.image_url}
-                    alt={`${displayName} 的照片`}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    alt={`${displayName}`}
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-luxury-ink/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 </div>
-                <div className="flex items-center gap-2.5 px-3 py-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-wedding-accent-soft to-purple-100 text-xs font-bold text-wedding-primary ring-2 ring-white">
-                    {displayName[0].toUpperCase()}
+                <div className="border-t border-luxury-parchment/60 px-3 py-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center border border-luxury-gold/30 text-[10px] font-medium uppercase tracking-wider text-luxury-gold-muted">
+                      {displayName[0]}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-xs font-medium tracking-wide text-luxury-charcoal">
+                        {displayName}
+                      </p>
+                      <p className="text-[10px] tracking-wide text-luxury-stone">
+                        {formatRelativeTime(photo.created_at)}
+                      </p>
+                    </div>
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-purple-900">
-                      {displayName}
+                  {photo.message && (
+                    <p className="mt-2 line-clamp-2 font-[family-name:var(--font-cormorant)] text-sm italic leading-relaxed text-luxury-stone">
+                      &ldquo;{photo.message}&rdquo;
                     </p>
-                    <p className="text-[11px] text-purple-400">
-                      {formatRelativeTime(photo.created_at)}
-                    </p>
-                  </div>
+                  )}
                 </div>
-                {photo.message && (
-                  <p className="line-clamp-2 px-3 pb-3 text-xs leading-relaxed text-purple-500">
-                    {photo.message}
-                  </p>
-                )}
               </article>
             );
           })}
         </div>
       )}
 
-      {/* 浮動上傳按鈕 */}
       <Link
         href="/upload"
-        className="fixed bottom-24 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-wedding-primary to-wedding-primary-light text-white shadow-lg shadow-purple-900/30 transition-transform active:scale-95 max-md:right-4 md:right-[max(1rem,calc(50vw-13rem))]"
-        aria-label="上傳照片"
+        className="fixed bottom-24 z-40 flex h-11 w-11 items-center justify-center border border-luxury-gold/40 bg-luxury-charcoal shadow-lg shadow-black/20 transition-all hover:border-luxury-gold active:scale-95 max-md:right-5 md:right-[max(1.25rem,calc(50vw-12.5rem))]"
+        aria-label="Upload"
       >
-        <Camera className="h-5 w-5" strokeWidth={2.5} />
+        <Camera className="h-4 w-4 text-luxury-gold-light" strokeWidth={1.5} />
       </Link>
 
       {lightboxIndex !== null && (

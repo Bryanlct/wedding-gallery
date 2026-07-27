@@ -1,25 +1,18 @@
-import { ImageOff, Heart } from "lucide-react";
-
 export default function EmptyState({
-  title = "尚無照片",
-  description = "成為第一個分享美好時刻的人吧！",
+  title = "No moments yet",
+  description = "Be the first to share a cherished moment",
 }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 px-8 py-20 text-center">
-      <div className="relative">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-wedding-accent-soft">
-          <ImageOff className="h-8 w-8 text-purple-300" />
-        </div>
-        <Heart className="absolute -bottom-1 -right-1 h-5 w-5 fill-wedding-accent text-wedding-accent" />
+    <div className="flex flex-col items-center px-10 py-24 text-center">
+      <div className="luxury-divider mb-6 w-24">
+        <span className="text-[8px] text-luxury-gold">◆</span>
       </div>
-      <div>
-        <h3 className="font-[family-name:var(--font-playfair)] text-lg font-semibold text-purple-900">
-          {title}
-        </h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-purple-400">
-          {description}
-        </p>
-      </div>
+      <h3 className="font-[family-name:var(--font-cormorant)] text-xl font-light tracking-wide text-luxury-charcoal">
+        {title}
+      </h3>
+      <p className="mt-3 text-[11px] leading-relaxed tracking-wide text-luxury-stone">
+        {description}
+      </p>
     </div>
   );
 }

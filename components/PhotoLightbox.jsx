@@ -49,72 +49,76 @@ export default function PhotoLightbox({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col bg-black/95 backdrop-blur-sm">
-      <div className="flex items-center justify-between px-4 py-3">
+    <div className="fixed inset-0 z-[100] flex flex-col bg-luxury-ink/97 backdrop-blur-sm">
+      <div className="flex items-center justify-between px-5 py-4">
         <button
           onClick={onClose}
-          className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/10"
-          aria-label="關閉"
+          className="p-2 text-luxury-stone-light transition-colors hover:text-luxury-cream"
+          aria-label="Close"
         >
-          <X className="h-5 w-5" />
+          <X className="h-5 w-5" strokeWidth={1.25} />
         </button>
         <div className="text-center">
-          <p className="text-[10px] uppercase tracking-widest text-white/40">
+          <p className="text-[9px] uppercase tracking-[0.3em] text-luxury-gold/60">
             {WEDDING.couple}
           </p>
-          <span className="text-sm text-white/60">
-            {currentIndex + 1} / {photos.length}
-          </span>
+          <p className="mt-0.5 text-[11px] tracking-widest text-luxury-stone-light">
+            {currentIndex + 1} — {photos.length}
+          </p>
         </div>
         <button
           onClick={handleDownload}
-          className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/10"
-          aria-label="下載"
+          className="p-2 text-luxury-stone-light transition-colors hover:text-luxury-gold-light"
+          aria-label="Download"
         >
-          <Download className="h-5 w-5" />
+          <Download className="h-5 w-5" strokeWidth={1.25} />
         </button>
       </div>
 
-      <div className="relative flex flex-1 items-center justify-center px-4">
+      <div className="relative flex flex-1 items-center justify-center px-6">
         {hasPrev && (
           <button
             onClick={() => onNavigate(currentIndex - 1)}
-            className="absolute left-2 z-10 rounded-full bg-white/10 p-2.5 text-white backdrop-blur-sm"
-            aria-label="上一張"
+            className="absolute left-3 z-10 border border-luxury-gold/20 p-2.5 text-luxury-gold-light/70 transition-colors hover:border-luxury-gold/50 hover:text-luxury-gold-light"
+            aria-label="Previous"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-4 w-4" strokeWidth={1.25} />
           </button>
         )}
 
         <img
           src={photo.image_url}
-          alt={photo.user_name ? `${photo.user_name} 的照片` : "婚禮照片"}
-          className="max-h-[65dvh] max-w-full rounded-xl object-contain shadow-2xl"
+          alt={photo.user_name || "Wedding photo"}
+          className="max-h-[62dvh] max-w-full object-contain"
         />
 
         {hasNext && (
           <button
             onClick={() => onNavigate(currentIndex + 1)}
-            className="absolute right-2 z-10 rounded-full bg-white/10 p-2.5 text-white backdrop-blur-sm"
-            aria-label="下一張"
+            className="absolute right-3 z-10 border border-luxury-gold/20 p-2.5 text-luxury-gold-light/70 transition-colors hover:border-luxury-gold/50 hover:text-luxury-gold-light"
+            aria-label="Next"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-4 w-4" strokeWidth={1.25} />
           </button>
         )}
       </div>
 
-      <div className="space-y-2 px-6 py-5 text-center">
+      <div className="space-y-2 px-8 py-6 text-center">
         {photo.user_name && (
-          <p className="text-sm font-semibold text-white">{photo.user_name}</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-luxury-cream">
+            {photo.user_name}
+          </p>
         )}
         {photo.message && (
-          <p className="text-sm leading-relaxed text-white/70">{photo.message}</p>
+          <p className="font-[family-name:var(--font-cormorant)] text-base italic leading-relaxed text-luxury-stone-light">
+            &ldquo;{photo.message}&rdquo;
+          </p>
         )}
         <button
           onClick={handleDownload}
-          className="mt-3 w-full rounded-xl bg-gradient-to-r from-wedding-primary to-wedding-primary-light py-3.5 text-sm font-bold text-white shadow-lg"
+          className="btn-luxury mt-4 w-full border border-luxury-gold/30 bg-transparent py-3.5 text-luxury-gold-light hover:bg-luxury-gold/10"
         >
-          Download High-Res
+          Download
         </button>
       </div>
     </div>
