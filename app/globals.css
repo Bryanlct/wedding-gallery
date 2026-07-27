@@ -221,3 +221,19 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* 新人名字 — Playfair Display 經典婚禮襯線 */
+.couple-name {
+  font-size: clamp(2.125rem, 6vw, 3.25rem);
+}
+
+.couple-name span:first-child,
+.couple-name span:last-child {
+  font-size: 1em;
+}
+
+.couple-name span:nth-child(2) {
+  font-size: 0.72em;
+  letter-spacing: 0.05em;
+  transform: translateY(-0.06em);
+}

@@ -28,7 +28,7 @@ export default function PhotoFeed() {
 
   return (
     <div className="flex flex-col">
-      <WeddingHeader title={WEDDING.tagline} />
+      <WeddingHeader title={WEDDING.tagline} showHero />
 
       <div className="page-content space-y-4 py-5 md:py-6">
         <div className="relative mx-auto max-w-xl md:max-w-2xl">
