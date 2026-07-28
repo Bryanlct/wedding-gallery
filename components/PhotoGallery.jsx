@@ -4,15 +4,22 @@ import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
 import { usePhotos } from "@/hooks/usePhotos";
 import { downloadImage } from "@/utils/downloadImage";
+import { useLanguage } from "@/contexts/LanguageContext";
 import WeddingHeader from "@/components/WeddingHeader";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import EmptyState from "@/components/EmptyState";
 import PhotoLightbox from "@/components/PhotoLightbox";
 
 export default function PhotoGallery() {
+  const { t } = useLanguage();
   const { photos, loading, error } = usePhotos();
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [downloadingId, setDownloadingId] = useState(null);
+
+  const getErrorMessage = (err) => {
+    if (err === "LOAD_FAILED") return t("errors.loadFailed");
+    return err;
+  };
 
   const handleQuickDownload = async (e, photo) => {
     e.stopPropagation();
@@ -23,7 +30,7 @@ export default function PhotoGallery() {
         : `agnes-bryan-photo-${photo.id}.jpg`;
       await downloadImage(photo.image_url, name);
     } catch {
-      alert("下載失敗，請稍後再試");
+      alert(t("gallery.downloadFailed"));
     } finally {
       setDownloadingId(null);
     }
@@ -32,14 +39,14 @@ export default function PhotoGallery() {
   return (
     <div className="flex flex-col">
       <WeddingHeader
-        title="Gallery"
-        subtitle="Tap to view · Hold to download"
+        title={t("gallery.title")}
+        subtitle={t("gallery.subtitle")}
         showDetails={false}
       />
 
       {!loading && photos.length > 0 && (
         <div className="border-b border-luxury-parchment/60 py-3 text-center text-[10px] uppercase tracking-[0.25em] text-luxury-stone">
-          {photos.length} photographs
+          {t("gallery.count", { count: photos.length })}
         </div>
       )}
 
@@ -47,12 +54,12 @@ export default function PhotoGallery() {
 
       {error && (
         <div className="mx-5 mt-4 border border-red-200/60 bg-red-50/50 px-4 py-3 text-center text-sm text-red-700">
-          {error}
+          {getErrorMessage(error)}
         </div>
       )}
 
       {!loading && !error && photos.length === 0 && (
-        <EmptyState description="Photographs will appear here once shared" />
+        <EmptyState description={t("gallery.empty")} />
       )}
 
       {!loading && photos.length > 0 && (
@@ -65,7 +72,7 @@ export default function PhotoGallery() {
             >
               <img
                 src={photo.image_url}
-                alt={photo.user_name || "Wedding photo"}
+                alt={photo.user_name || t("lightbox.weddingPhoto")}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 loading="lazy"
               />
@@ -74,7 +81,7 @@ export default function PhotoGallery() {
                 onClick={(e) => handleQuickDownload(e, photo)}
                 disabled={downloadingId === photo.id}
                 className="absolute bottom-2 right-2 flex h-7 w-7 items-center justify-center border border-luxury-gold/30 bg-luxury-charcoal/80 text-luxury-gold-light backdrop-blur-sm transition-opacity md:opacity-0 md:group-hover:opacity-100"
-                aria-label="Download"
+                aria-label={t("lightbox.download")}
               >
                 {downloadingId === photo.id ? (
                   <Loader2 className="h-3 w-3 animate-spin" />

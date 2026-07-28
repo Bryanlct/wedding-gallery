@@ -9,12 +9,16 @@ create table if not exists public.photos (
   image_url text not null,
   user_name text,
   message text,
+  likes_count integer default 0 not null,
   created_at timestamptz default now() not null
 );
 
 -- 2. 建立索引（加速排序查詢）
 create index if not exists photos_created_at_idx
   on public.photos (created_at desc);
+
+create index if not exists photos_likes_count_idx
+  on public.photos (likes_count desc);
 
 -- 3. 啟用 Row Level Security
 alter table public.photos enable row level security;
@@ -29,7 +33,13 @@ create policy "Allow public insert"
   on public.photos for insert
   with check (true);
 
--- 6. 啟用 Realtime（讓相簿即時更新）
+-- 6. RLS 政策：所有人可更新讚好數（賓客按讚）
+create policy "Allow public update likes"
+  on public.photos for update
+  using (true)
+  with check (true);
+
+-- 7. 啟用 Realtime（讓相簿即時更新）
 alter publication supabase_realtime add table public.photos;
 
 -- =============================================

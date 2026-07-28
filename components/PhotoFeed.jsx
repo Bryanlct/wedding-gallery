@@ -4,31 +4,34 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { usePhotos } from "@/hooks/usePhotos";
 import { formatRelativeTime } from "@/utils/formatTime";
-import { WEDDING } from "@/lib/wedding";
+import { useLanguage } from "@/contexts/LanguageContext";
 import WeddingHeader from "@/components/WeddingHeader";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import EmptyState from "@/components/EmptyState";
+import LikeButton from "@/components/LikeButton";
 import PhotoLightbox from "@/components/PhotoLightbox";
 
-const filters = [
-  { key: "latest", label: "Latest" },
-  { key: "top", label: "Top" },
-  { key: "today", label: "Today" },
-];
+const FILTER_KEYS = ["latest", "top", "today"];
 
 export default function PhotoFeed() {
+  const { t, locale } = useLanguage();
   const [activeFilter, setActiveFilter] = useState("latest");
   const [search, setSearch] = useState("");
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  const { photos, loading, error } = usePhotos({
+  const { photos, loading, error, patchPhoto } = usePhotos({
     filter: activeFilter,
     search,
   });
 
+  const getErrorMessage = (err) => {
+    if (err === "LOAD_FAILED") return t("errors.loadFailed");
+    return err;
+  };
+
   return (
     <div className="flex flex-col">
-      <WeddingHeader title={WEDDING.tagline} showHero />
+      <WeddingHeader showHero />
 
       <div className="page-content space-y-4 py-5 md:py-6">
         <div className="relative mx-auto max-w-xl md:max-w-2xl">
@@ -38,7 +41,7 @@ export default function PhotoFeed() {
           />
           <input
             type="search"
-            placeholder="Search"
+            placeholder={t("feed.search")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="input-luxury w-full py-3 pl-10 pr-4 text-sm text-luxury-charcoal placeholder:text-luxury-stone-light/60 md:py-3.5 md:text-base"
@@ -46,17 +49,17 @@ export default function PhotoFeed() {
         </div>
 
         <div className="mx-auto flex max-w-md justify-center gap-6 md:max-w-none md:gap-10">
-          {filters.map((filter) => (
+          {FILTER_KEYS.map((key) => (
             <button
-              key={filter.key}
-              onClick={() => setActiveFilter(filter.key)}
+              key={key}
+              onClick={() => setActiveFilter(key)}
               className={`pb-1 text-[10px] uppercase tracking-[0.18em] transition-all ${
-                activeFilter === filter.key
+                activeFilter === key
                   ? "border-b border-luxury-gold font-medium text-luxury-charcoal"
                   : "text-luxury-stone hover:text-luxury-charcoal"
               }`}
             >
-              {filter.label}
+              {t(`feed.${key}`)}
             </button>
           ))}
         </div>
@@ -66,17 +69,15 @@ export default function PhotoFeed() {
 
       {error && (
         <div className="mx-5 border border-red-200/60 bg-red-50/50 px-4 py-3 text-center text-sm text-red-700">
-          {error}
+          {getErrorMessage(error)}
         </div>
       )}
 
       {!loading && !error && photos.length === 0 && (
         <EmptyState
-          title={search ? "No results" : "No moments yet"}
+          title={search ? t("feed.noResults") : t("feed.noMoments")}
           description={
-            search
-              ? "Try a different search"
-              : "Be the first to share a cherished moment"
+            search ? t("feed.noResultsDesc") : t("feed.noMomentsDesc")
           }
         />
       )}
@@ -84,7 +85,7 @@ export default function PhotoFeed() {
       {!loading && photos.length > 0 && (
         <div className="page-content grid grid-cols-2 gap-3 pb-6 sm:grid-cols-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-5">
           {photos.map((photo, index) => {
-            const displayName = photo.user_name || "Guest";
+            const displayName = photo.user_name || t("feed.guest");
             return (
               <article
                 key={photo.id}
@@ -109,9 +110,16 @@ export default function PhotoFeed() {
                         {displayName}
                       </p>
                       <p className="text-[10px] tracking-wide text-luxury-stone">
-                        {formatRelativeTime(photo.created_at)}
+                        {formatRelativeTime(photo.created_at, locale, t)}
                       </p>
                     </div>
+                    <LikeButton
+                      photoId={photo.id}
+                      initialCount={photo.likes_count || 0}
+                      onCountChange={(id, count) =>
+                        patchPhoto(id, { likes_count: count })
+                      }
+                    />
                   </div>
                   {photo.message && (
                     <p className="mt-2 line-clamp-2 font-[family-name:var(--font-cormorant)] text-sm italic leading-relaxed text-luxury-stone">
@@ -131,6 +139,7 @@ export default function PhotoFeed() {
           currentIndex={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
           onNavigate={setLightboxIndex}
+          onLikeChange={(id, count) => patchPhoto(id, { likes_count: count })}
         />
       )}
     </div>

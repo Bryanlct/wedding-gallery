@@ -8,11 +8,9 @@ function sortPhotos(photos, filter) {
 
   switch (filter) {
     case "top":
-      // 有祝福留言的優先，再依時間排序
       return sorted.sort((a, b) => {
-        const aHasMessage = Boolean(a.message?.trim());
-        const bHasMessage = Boolean(b.message?.trim());
-        if (aHasMessage !== bHasMessage) return bHasMessage - aHasMessage;
+        const likeDiff = (b.likes_count || 0) - (a.likes_count || 0);
+        if (likeDiff !== 0) return likeDiff;
         return new Date(b.created_at) - new Date(a.created_at);
       });
     case "today": {
@@ -45,6 +43,12 @@ export function usePhotos({ filter = "latest", search = "" } = {}) {
     return data || [];
   }, []);
 
+  const updatePhotoInState = useCallback((updated) => {
+    setPhotos((prev) =>
+      prev.map((p) => (p.id === updated.id ? { ...p, ...updated } : p))
+    );
+  }, []);
+
   useEffect(() => {
     let mounted = true;
 
@@ -55,7 +59,7 @@ export function usePhotos({ filter = "latest", search = "" } = {}) {
         const data = await fetchPhotos();
         if (mounted) setPhotos(data);
       } catch (err) {
-        if (mounted) setError(err.message || "載入失敗");
+        if (mounted) setError("LOAD_FAILED");
       } finally {
         if (mounted) setLoading(false);
       }
@@ -75,13 +79,20 @@ export function usePhotos({ filter = "latest", search = "" } = {}) {
           });
         }
       )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: PHOTOS_TABLE },
+        (payload) => {
+          updatePhotoInState(payload.new);
+        }
+      )
       .subscribe();
 
     return () => {
       mounted = false;
       supabase.removeChannel(channel);
     };
-  }, [fetchPhotos]);
+  }, [fetchPhotos, updatePhotoInState]);
 
   const filteredPhotos = useMemo(() => {
     let result = sortPhotos(photos, filter);
@@ -98,14 +109,20 @@ export function usePhotos({ filter = "latest", search = "" } = {}) {
     return result;
   }, [photos, filter, search]);
 
+  const patchPhoto = useCallback((photoId, patch) => {
+    setPhotos((prev) =>
+      prev.map((p) => (p.id === photoId ? { ...p, ...patch } : p))
+    );
+  }, []);
+
   const refetch = useCallback(async () => {
     try {
       const data = await fetchPhotos();
       setPhotos(data);
     } catch (err) {
-      setError(err.message || "重新載入失敗");
+      setError("LOAD_FAILED");
     }
   }, [fetchPhotos]);
 
-  return { photos: filteredPhotos, loading, error, refetch };
+  return { photos: filteredPhotos, loading, error, refetch, patchPhoto };
 }
