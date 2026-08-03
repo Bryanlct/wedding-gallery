@@ -17,3 +17,5 @@ export const supabase = createClient(
 export const STORAGE_BUCKET = "wedding-photos";
 
 export const PHOTOS_TABLE = "photos";
+
+export const GUEST_PROGRESS_TABLE = "guest_progress";

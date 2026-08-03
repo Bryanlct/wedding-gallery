@@ -1,52 +1,56 @@
-import { Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, Noto_Sans_TC, Zen_Old_Mincho } from "next/font/google";
 import "./globals.css";
-import BottomNav from "@/components/BottomNav";
 import Providers from "@/components/Providers";
-import { WEDDING } from "@/lib/wedding";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-cormorant",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const notoSans = Noto_Sans_TC({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-playfair",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-noto",
   display: "swap",
 });
 
-const inter = Inter({
+const zenMincho = Zen_Old_Mincho({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-mincho",
   display: "swap",
 });
 
 export const metadata = {
-  title: `${WEDDING.couple} | ${WEDDING.tagline}`,
-  description: `${WEDDING.couple} — ${WEDDING.date} @ ${WEDDING.venueEn}`,
+  title: "星海之約｜Agnes & Bryan",
+  description: "在維港星光下找回四段記憶，見證 Agnes 與 Bryan 的永恆婚約。",
+};
+
+export const viewport = {
+  themeColor: "#090818",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="zh-TW" className={`${cormorant.variable} ${playfair.variable} ${inter.variable}`}>
-      <body className="min-h-dvh font-[family-name:var(--font-inter)] font-light antialiased">
+    <html
+      lang="zh-Hant"
+      className={`${cormorant.variable} ${notoSans.variable} ${zenMincho.variable}`}
+    >
+      <body>
         <Providers>
-          <div className="pointer-events-none fixed inset-0 bg-luxury-ink">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_30%,rgba(196,163,90,0.07),transparent_55%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(58,47,53,0.12),transparent_50%)]" />
+          <div className="ambient-bg" aria-hidden="true">
+            <div className="ambient-orb ambient-orb-one" />
+            <div className="ambient-orb ambient-orb-two" />
+            <div className="star-field" />
           </div>
-
           <div className="app-shell">
-            <main className="texture-linen pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-[calc(6rem+env(safe-area-inset-bottom))]">
+            <div className="shell-glow" aria-hidden="true" />
+            <main className="relative min-h-dvh">
               {children}
             </main>
           </div>
-
-          <BottomNav />
         </Providers>
       </body>
     </html>
