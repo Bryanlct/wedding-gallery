@@ -73,7 +73,7 @@ export default function SuccessPage() {
       play("chapter");
       router.push("/game");
     } catch (replayError) {
-      setError(replayError.message || "暫時無法重新展開星軌。");
+      setError(replayError.message || "暫時無法再玩一次。");
       setIsReplaying(false);
     }
   }
@@ -198,7 +198,7 @@ export default function SuccessPage() {
         <div className="mt-6">
           <button type="button" className="primary-button" onClick={replay} disabled={isReplaying}>
             <RefreshCw size={15} className={isReplaying ? "animate-spin" : ""} />
-            {isReplaying ? "重新編織星軌中…" : "再玩一次 · 收集不同結局"}
+            {isReplaying ? "正在重新開始…" : "再玩一次 · 收集不同結局"}
           </button>
           <p className="mt-3 text-[9px] leading-5 text-white/32">
             重玩會隨機改變尋物順序，但保留原有 QR Code，不會重複取得兌獎資格。

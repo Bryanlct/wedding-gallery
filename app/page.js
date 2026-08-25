@@ -32,7 +32,7 @@ export default function HomePage() {
     const phoneNumber = normalizePhone(phone);
 
     if (guestName.length < 2) {
-      setMessage("請告訴邀請函，你希望被如何稱呼。");
+      setMessage("請告訴我們你的名字。");
       return;
     }
     if (phoneNumber.length < 4) {
@@ -55,7 +55,7 @@ export default function HomePage() {
       play("correct");
       router.push(result.guest.currentLevel >= 5 ? "/success" : "/game");
     } catch (error) {
-      setMessage(error.message || "命運之門暫時未能開啟，請稍後再試。");
+      setMessage(error.message || "暫時連不上，請稍後再試。");
       setIsLoading(false);
     }
   }
@@ -98,7 +98,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
-              <p className="mb-3 font-story text-xs tracking-[.45em] text-blush/80">婚宴限定戀愛解謎</p>
+              <p className="mb-3 font-story text-xs tracking-[.45em] text-blush/80">婚宴限定 · 四種戀愛小遊戲</p>
               <h1 className="game-logo">星海<br />之約</h1>
               <p className="mt-3 font-romance text-lg tracking-[.18em] text-gold-light">
                 Covenant of Starlight
@@ -111,7 +111,7 @@ export default function HomePage() {
               transition={{ delay: 1.2 }}
             >
               <button type="button" className="primary-button title-enter" onClick={enterStory}>
-                翻開命運序章 <Sparkles size={16} />
+                開始我們的故事 <Sparkles size={16} />
               </button>
               <p className="mt-4 text-[9px] tracking-[.22em] text-white/38">
                 {GAME_COPY.date} · {GAME_COPY.venue}
@@ -140,9 +140,9 @@ export default function HomePage() {
               transition={{ type: "spring", damping: 22 }}
             >
               <div className="mb-5 text-center">
-                <p className="eyebrow">Invitation of Destiny</p>
+                <p className="eyebrow">Wedding Invitation</p>
                 <h2 className="mt-2 font-story text-3xl tracking-wider text-ivory">寫下你的名字</h2>
-                <p className="mt-2 text-xs leading-6 text-white/50">星海將為你保存每一段解謎進度</p>
+                <p className="mt-2 text-xs leading-6 text-white/50">我們會記住你的闖關進度</p>
               </div>
 
               <LuxuryFrame>
@@ -176,13 +176,13 @@ export default function HomePage() {
                   </label>
                   <p className="status-message" role="alert">{message}</p>
                   <button className="primary-button" disabled={isLoading} type="submit">
-                    {isLoading ? "尋找你的星軌中…" : "接受這封邀請"}
+                    {isLoading ? "正在為你準備…" : "開始闖關"}
                     {!isLoading && <ArrowRight size={17} />}
                   </button>
                 </form>
               </LuxuryFrame>
               <p className="mt-5 text-center text-[9px] tracking-[.16em] text-white/30">
-                進度會綁定輸入的號碼 · 通關約需 12–18 分鐘
+                四種小遊戲 · 大約 10 分鐘
               </p>
             </motion.div>
           )}

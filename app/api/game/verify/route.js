@@ -32,7 +32,7 @@ export async function POST(request) {
       await supabaseAdmin.from(TABLE).update({ attempts: totalAttempts }).eq("id", guest.id);
       return NextResponse.json({
         correct: false,
-        message: "星光沒有回應。再讀一次線索，你已經很接近了。",
+        message: "再想一下，線索都在畫面裡。你已經很接近了。",
       });
     }
 
@@ -99,6 +99,6 @@ export async function POST(request) {
     });
   } catch (error) {
     console.error("verify game answer", error);
-    return NextResponse.json({ error: "星軌暫時中斷，請稍後再試。" }, { status: 500 });
+    return NextResponse.json({ error: "暫時連不上，請稍後再試。" }, { status: 500 });
   }
 }

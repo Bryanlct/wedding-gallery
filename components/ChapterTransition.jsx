@@ -22,7 +22,7 @@ export default function ChapterTransition({ level, title, visible }) {
             className="text-center"
           >
             <Sparkles className="mx-auto mb-5 text-gold-light" />
-            <p className="eyebrow">Memory Chapter</p>
+            <p className="eyebrow">甜蜜章節</p>
             <p className="mt-3 font-romance text-6xl text-gold-light">0{level}</p>
             <div className="ornament mx-auto my-4 w-40" />
             <h2 className="text-lg tracking-[.18em] text-ivory">{title}</h2>

@@ -39,6 +39,6 @@ export async function POST(request) {
     return NextResponse.json({ guest: publicGuest(result.data) });
   } catch (error) {
     console.error("replay game", error);
-    return NextResponse.json({ error: "暫時無法開啟新的星軌。" }, { status: 500 });
+    return NextResponse.json({ error: "暫時無法再玩一次。" }, { status: 500 });
   }
 }

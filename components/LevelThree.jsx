@@ -1,62 +1,99 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
-import { motion } from "@/components/Motion";
-import { ArrowRight, Check, Search, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  Cake,
+  Flower2,
+  Gem,
+  Heart,
+  ImageIcon,
+  Luggage,
+  Umbrella,
+  UserRound,
+  Wine,
+} from "lucide-react";
+import GameStage from "@/components/GameStage";
 import HintPanel from "@/components/HintPanel";
 import LevelIntro from "@/components/LevelIntro";
 import { useGameAudio } from "@/contexts/GameAudioContext";
 import { GAME_CONTENT } from "@/lib/gameContent";
 
 const content = GAME_CONTENT.levels[3];
+const itemIcons = {
+  cake: Cake,
+  flowers: Flower2,
+  rings: Gem,
+  chairs: UserRound,
+  champagne: Wine,
+  photo: ImageIcon,
+  umbrella: Umbrella,
+  luggage: Luggage,
+};
+
+function shuffle(list) {
+  return [...list].sort(() => Math.random() - 0.5);
+}
 
 export default function LevelThree({ onVerify, isSaving }) {
-  const [order, setOrder] = useState(content.objects.map((object) => object.id));
-  const [found, setFound] = useState([]);
+  const [tray, setTray] = useState(content.items);
+  const [placed, setPlaced] = useState({});
+  const [selected, setSelected] = useState("");
+  const [combo, setCombo] = useState(0);
   const [hints, setHints] = useState(0);
   const [misses, setMisses] = useState(0);
-  const [message, setMessage] = useState("");
+  const [shake, setShake] = useState("");
+  const [message, setMessage] = useState("先點一件物品，再點會場對應的位置。多餘的東西不要放。");
   const { play } = useGameAudio();
 
   useEffect(() => {
-    setOrder((current) => [...current].sort(() => Math.random() - 0.5));
+    setTray(shuffle(content.items));
   }, []);
 
-  const currentTarget = order[found.length];
-  const currentObject = useMemo(
-    () => content.objects.find((object) => object.id === currentTarget),
-    [currentTarget]
-  );
+  const filledIds = Object.values(placed);
+  const remainingSlots = content.slots.length - filledIds.length;
 
-  function miss() {
-    if (found.length === content.objects.length) return;
-    setMisses((current) => current + 1);
-    setMessage(`這裡只有花瓣。下一件要找的是「${currentObject?.label}」。`);
-    play("wrong");
-    navigator.vibrate?.(20);
+  function pickItem(item) {
+    if (filledIds.includes(item.id) || isSaving) return;
+    play("tap");
+    setSelected(item.id);
+    setMessage(item.decoy ? `「${item.label}」看起來不太像婚禮用品…` : `已選「${item.label}」，再點會場格子。`);
   }
 
-  function selectObject(event, object) {
-    event.stopPropagation();
-    if (found.includes(object.id) || isSaving) return;
-    if (object.id !== currentTarget) {
-      miss();
+  function placeOnSlot(slot) {
+    if (placed[slot.id] || isSaving) return;
+    if (!selected) {
+      setMessage("先從下面選一件物品。");
       return;
     }
-    const nextFound = [...found, object.id];
-    setFound(nextFound);
-    setMessage(
-      nextFound.length === content.objects.length
-        ? "五件信物全部回到月光下，花園深處的門已經打開。"
-        : `找到了「${object.label}」！星光正指向下一件信物。`
-    );
+    const item = content.items.find((entry) => entry.id === selected);
+    if (item.decoy || selected !== slot.id) {
+      setMisses((current) => current + 1);
+      setCombo(0);
+      setShake(slot.id);
+      window.setTimeout(() => setShake(""), 400);
+      play("wrong");
+      navigator.vibrate?.(16);
+      setMessage(
+        item.decoy
+          ? `「${item.label}」不是婚禮會場要的東西。`
+          : `「${item.label}」不該放在「${slot.label}」。`
+      );
+      return;
+    }
+    const nextPlaced = { ...placed, [slot.id]: item.id };
+    setPlaced(nextPlaced);
+    setTray((current) => current.filter((entry) => entry.id !== item.id));
+    setSelected("");
+    setCombo((current) => current + 1);
     play("correct");
-    navigator.vibrate?.([20, 25, 20]);
+    navigator.vibrate?.([12, 16, 12]);
+    const left = content.slots.length - Object.keys(nextPlaced).length;
+    setMessage(left === 0 ? "會場佈置完成！今晚可以開始了。" : `放對了！還有 ${left} 個位置。`);
   }
 
   async function submit() {
-    const result = await onVerify(found, {
+    const result = await onVerify(content.slots.map((slot) => placed[slot.id]), {
       attempts: Math.max(1, misses + 1),
       hintsUsed: hints,
     });
@@ -67,76 +104,60 @@ export default function LevelThree({ onVerify, isSaving }) {
   }
 
   return (
-    <LevelIntro
-      chapter={content.chapter}
-      title={content.title}
-      subtitle={content.subtitle}
-      dialogues={content.dialogues}
-    >
-      <div className="mb-3 flex items-center justify-between">
-        <div>
-          <p className="text-[10px] tracking-[.16em] text-white/35">CURRENT TARGET</p>
-          <p className="mt-1 font-story text-sm text-gold-light">
-            {currentObject ? currentObject.label : "所有信物已找回"}
-          </p>
-        </div>
-        <div className="flex items-center gap-1.5 text-xs text-blush">
-          <Search size={14} /> {found.length} / {content.objects.length}
-        </div>
-      </div>
-
-      <motion.div className="hidden-scene" onClick={miss} whileTap={{ scale: 0.995 }}>
-        <Image
-          src={content.scene}
-          alt="維港月夜下的酒店花園，藏有五件回憶信物"
-          fill
-          priority
-          sizes="(max-width: 480px) 100vw, 480px"
-        />
-        {content.objects.map((object) => {
-          const isFound = found.includes(object.id);
-          const assisted = hints >= 2 && object.id === currentTarget;
+    <LevelIntro {...content}>
+      <GameStage current={1} total={1} combo={combo} />
+      <p className="mb-3 text-center font-story text-sm leading-7">佈置黃昏花園婚禮會場</p>
+      <p className="mb-3 text-center text-[11px] text-blush">
+        已放好 {filledIds.length} / {content.slots.length}
+        {selected ? ` · 手中拿著「${content.items.find((item) => item.id === selected)?.label}」` : ""}
+      </p>
+      <div className="venue-grid">
+        {content.slots.map((slot) => {
+          const filled = placed[slot.id];
+          const Icon = itemIcons[filled || slot.id];
+          const hinted = hints >= 2 && selected === slot.id && !filled;
           return (
             <button
-              key={object.id}
+              key={slot.id}
               type="button"
-              className={`object-hotspot ${isFound ? "found" : ""} ${assisted ? "assisted" : ""}`}
-              style={{
-                left: `${object.x}%`,
-                top: `${object.y}%`,
-                width: `${object.size}%`,
-                aspectRatio: "1",
-              }}
-              onClick={(event) => selectObject(event, object)}
-              aria-label={`查看${object.label}`}
+              className={`venue-slot ${filled ? "filled" : ""} ${selected ? "awaiting" : ""} ${hinted ? "hinted" : ""} ${shake === slot.id ? "shake" : ""}`}
+              onClick={() => placeOnSlot(slot)}
             >
-              {isFound && <Check size={15} />}
+              <Icon size={18} />
+              <span className="venue-slot-name">{slot.label}</span>
+              <span className="venue-slot-item">
+                {filled ? content.items.find((item) => item.id === filled)?.label : "點這裡放入"}
+              </span>
             </button>
           );
         })}
-      </motion.div>
-
-      <div className="object-list">
-        {order.map((id) => {
-          const object = content.objects.find((item) => item.id === id);
+      </div>
+      <div className="keepsake-tray">
+        {tray.map((item) => {
+          const Icon = itemIcons[item.id] || Heart;
           return (
-            <span key={id} className={`object-chip ${found.includes(id) ? "found" : ""}`}>
-              {found.includes(id) && "✓ "}{object.label}
-            </span>
+            <button
+              key={item.id}
+              type="button"
+              className={`keepsake-token ${selected === item.id ? "selected" : ""} ${item.decoy ? "decoy" : ""}`}
+              onClick={() => pickItem(item)}
+            >
+              <Icon size={18} />
+              <span>{item.label}</span>
+            </button>
           );
         })}
       </div>
-
       <HintPanel hints={content.hints} revealed={hints} onReveal={setHints} />
       <p className="status-message mt-3">{message}</p>
       <button
         type="button"
         className="primary-button mt-2"
         onClick={submit}
-        disabled={isSaving || found.length !== content.objects.length}
+        disabled={isSaving || remainingSlots > 0}
       >
-        {isSaving ? "封存回憶中…" : "封存五件信物"}
-        {found.length === content.objects.length ? <ArrowRight size={17} /> : <Sparkles size={15} />}
+        {isSaving ? "封存會場中…" : remainingSlots > 0 ? `還差 ${remainingSlots} 格` : "完成婚禮佈置"}
+        <ArrowRight size={17} />
       </button>
     </LevelIntro>
   );

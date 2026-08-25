@@ -28,7 +28,7 @@ export default function LevelIntro({
           <div className="mx-auto mb-3 flex size-12 items-center justify-center rounded-full border border-gold/25 bg-gold/5">
             <Heart size={19} className="fill-rose/20 text-blush" />
           </div>
-          <p className="eyebrow mb-2">Chapter {chapter} · Love Memory</p>
+          <p className="eyebrow mb-2">第 {chapter} 章 · 甜蜜回憶</p>
           <h1 className="font-story text-3xl font-semibold tracking-wider text-ivory">{title}</h1>
           <p className="mx-auto mt-3 max-w-xs text-xs leading-6 text-white/50">{subtitle}</p>
         </div>
@@ -39,7 +39,7 @@ export default function LevelIntro({
           <div className="level-hero">
             <Image src={scene} alt="" fill priority sizes="(max-width: 480px) 100vw, 480px" />
             <div className="level-heading">
-              <p className="eyebrow">Chapter {chapter} · Love Memory</p>
+              <p className="eyebrow">第 {chapter} 章 · 甜蜜回憶</p>
               <h1 className="mt-1 font-story text-3xl font-semibold tracking-wider text-ivory">
                 {title}
               </h1>

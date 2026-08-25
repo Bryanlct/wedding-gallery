@@ -60,7 +60,7 @@ export default function GamePage() {
 
   const handleVerify = useCallback(
     async (answer, meta) => {
-      if (!guest || isSaving) return { correct: false, message: "星軌正在判讀中。" };
+      if (!guest || isSaving) return { correct: false, message: "正在核對答案，請稍等一下。" };
       setIsSaving(true);
       setError("");
 
@@ -107,7 +107,7 @@ export default function GamePage() {
         }, 750);
         return result;
       } catch (verifyError) {
-        const message = verifyError.message || "星軌暫時中斷，請稍後再試。";
+        const message = verifyError.message || "暫時連不上，請稍後再試。";
         setError(message);
         setIsSaving(false);
         return { correct: false, message };
@@ -125,11 +125,11 @@ export default function GamePage() {
             <LoaderCircle className="absolute inset-4 animate-spin text-gold-light" size={32} />
           </div>
           <p className="mt-5 font-story text-xs tracking-[.16em] text-white/50">
-            {error || "正在展開你的星海軌跡…"}
+            {error || "正在打開你的戀愛小遊戲…"}
           </p>
           {error && (
             <button className="primary-button mt-6 px-8" onClick={() => router.replace("/")}>
-              返回命運序章
+              返回開始畫面
             </button>
           )}
         </div>
@@ -152,7 +152,7 @@ export default function GamePage() {
       <header className="game-hud">
         <div className="mb-2 flex items-center justify-between">
           <div>
-            <p className="text-[9px] tracking-[.18em] text-white/30">DESTINY PLAYER</p>
+            <p className="text-[9px] tracking-[.18em] text-white/30">親愛的賓客</p>
             <p className="mt-1 font-story text-xs text-white/72">{guest.guestName}</p>
           </div>
           <div className="text-right">
@@ -161,7 +161,7 @@ export default function GamePage() {
               心動值 {guest.affectionScore || 0}
             </div>
             <p className="mt-1 text-[9px] tracking-[.14em] text-gold-light">
-              CHAPTER 0{guest.currentLevel} / 04
+              第 0{guest.currentLevel} 章 / 04
             </p>
           </div>
         </div>

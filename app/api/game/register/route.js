@@ -53,7 +53,7 @@ export async function POST(request) {
   } catch (error) {
     console.error("register game guest", error);
     return NextResponse.json(
-      { error: "命運之門暫時未能開啟，請稍後再試。" },
+      { error: "暫時連不上，請稍後再試。" },
       { status: 500 }
     );
   }
