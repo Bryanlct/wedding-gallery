@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>金普頓婚宴當日流程 · Audrey / Kaykay / Eunice</title>
+  <style>
+    :root {
+      --ink: #2c2418;
+      --muted: #6a6158;
+      --line: #ddd4c6;
+      --paper: #faf7f0;
+      --gold: #a68b4b;
+      --hl: #f4ead4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #e4dbcd;
+      color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang HK", "Microsoft JhengHei", sans-serif;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      padding: 10px;
+      background: #2c2418;
+      color: #faf7f0;
+      font-size: 12px;
+    }
+    .toolbar button {
+      border: 0;
+      background: #c4a35a;
+      color: #2c2418;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .sheet {
+      width: 210mm;
+      margin: 16px auto;
+      background: var(--paper);
+      padding: 12mm 12mm 10mm;
+      box-shadow: 0 8px 24px rgba(44, 36, 24, 0.12);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 16px;
+      align-items: end;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+    .who { margin: 2px 0 0; color: var(--muted); font-size: 12.5px; }
+    .meta {
+      text-align: right;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    h2 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    section { margin-bottom: 14px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 5px 8px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th { background: #efe6d4; font-weight: 600; }
+    td.phone {
+      width: 28%;
+      background: #fff;
+      height: 28px;
+      background-image: linear-gradient(transparent 22px, #e8dfd0 22px, #e8dfd0 23px, transparent 23px);
+    }
+    .tips {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .tip {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--gold);
+      padding: 8px 12px;
+      background: #fffdf8;
+      font-size: 12.5px;
+    }
+    .tip strong { display: block; margin-bottom: 4px; }
+    .tip ol { margin: 0; padding-left: 1.2em; }
+    .band td {
+      background: #3d3428;
+      color: #faf7f0;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-align: center;
+      font-weight: 700;
+      padding: 4px 8px;
+    }
+    .rd { font-size: 12px; }
+    .rd th:first-child, .rd td:first-child {
+      width: 7em;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+    .rd td { vertical-align: top; }
+    .rd td.mute { color: #b5a898; }
+    tr.mark td { background: var(--hl); }
+    .rules {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: n;
+    }
+    .rules li {
+      position: relative;
+      padding: 8px 10px 8px 36px;
+      background: #fffdf8;
+      border: 1px solid var(--line);
+    }
+    .rules li::before {
+      counter-increment: n;
+      content: counter(n);
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media print {
+      .toolbar { display: none; }
+      body { background: white; }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+        width: auto;
+        padding: 8mm 10mm;
+      }
+      .rules li, tr { break-inside: avoid; }
+    }
+    @media (max-width: 800px) {
+      .sheet { width: auto; margin: 0; padding: 16px; box-shadow: none; }
+      header, .rules, .tips { grid-template-columns: 1fr; }
+      .meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    給 Audrey、Kaykay、Eunice　·　當日流程
+    <button type="button" onclick="window.print()">列印 / 存 PDF</button>
+  </div>
+
+  <article class="sheet">
+    <header>
+      <div>
+        <h1>金普頓婚宴當日流程</h1>
+        <p class="who">麻煩 Audrey、Kaykay、Eunice 當日參考，多謝三位幫忙。</p>
+      </div>
+      <p class="meta">
+        2026年12月6日（日）<br />
+        香港金普頓酒店（尖沙咀）<br />
+        Agnes &amp; Bryan
+      </p>
+    </header>
+
+    <section>
+      <h2>聯絡</h2>
+      <table>
+        <thead>
+          <tr><th>邊位</th><th>姓名</th><th>電話</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>新郎</td><td>Bryan</td><td class="phone"></td></tr>
+          <tr><td>酒店活動經理</td><td></td><td class="phone"></td></tr>
+          <tr><td>新娘妹妹</td><td>Audrey</td><td class="phone"></td></tr>
+          <tr><td>接待處</td><td>Kaykay</td><td class="phone"></td></tr>
+          <tr><td>接待處</td><td>Eunice</td><td class="phone"></td></tr>
+          <tr><td>司儀</td><td>Big Mac</td><td class="phone"></td></tr>
+          <tr><td>律師</td><td>Simon Chan</td><td class="phone"></td></tr>
+          <tr><td>化妝</td><td>Yvonne</td><td class="phone"></td></tr>
+          <tr><td>幫手</td><td>Faifai</td><td class="phone"></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>當日流程</h2>
+      <table class="rd">
+        <thead>
+          <tr>
+            <th>時間</th>
+            <th>Audrey</th>
+            <th>Kaykay / Eunice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="band"><td colspan="3">準備</td></tr>
+          <tr>
+            <td>10:00 AM</td>
+            <td>麻煩準時到場</td>
+            <td class="mute">—</td>
+          </tr>
+          <tr>
+            <td>11:00 AM</td>
+            <td>麻煩幫忙執好影相要用嘅物品</td>
+            <td class="mute">—</td>
+          </tr>
+          <tr>
+            <td>12:00 PM</td>
+            <td>喺新娘房化妝</td>
+            <td class="mute">—</td>
+          </tr>
+          <tr>
+            <td>12:30 PM</td>
+            <td>繼續喺新娘房化妝</td>
+            <td>麻煩準時到場</td>
+          </tr>
+          <tr>
+            <td>1:00–2:00 PM</td>
+            <td>喺新娘房幫忙為 Faifai 化妝</td>
+            <td>Kaykay 喺 Winnie 房化妝；Eunice 喺新娘房化妝</td>
+          </tr>
+          <tr>
+            <td>2:00 PM</td>
+            <td>幫忙將物品放入 Parlour，然後用膳</td>
+            <td>用膳</td>
+          </tr>
+          <tr>
+            <td>3:00 PM</td>
+            <td rowspan="2">敬茶及大合照</td>
+            <td>幫忙迎接家人</td>
+          </tr>
+          <tr>
+            <td>3:30 PM</td>
+            <td>幫忙將物品搬入 Parlour</td>
+          </tr>
+          <tr>
+            <td>4:00 PM</td>
+            <td>幫忙迎接家人</td>
+            <td rowspan="2">幫忙準備接待處（Eunice 派發工作人員利是）</td>
+          </tr>
+          <tr>
+            <td>4:30 PM</td>
+            <td>如司儀／律師尚未到場，麻煩幫忙致電</td>
+          </tr>
+          <tr class="band"><td colspan="3">典禮</td></tr>
+          <tr>
+            <td>5:00 PM</td>
+            <td>請在附近等候</td>
+            <td>幫忙迎賓、簽到及收禮</td>
+          </tr>
+          <tr>
+            <td>5:10 PM</td>
+            <td class="mute">—</td>
+            <td>繼續迎賓（Gallery 開放）</td>
+          </tr>
+          <tr>
+            <td>5:20–5:50 PM</td>
+            <td>典禮請入座（5:50 切餅）</td>
+            <td>典禮請入座（5:50 切餅）</td>
+          </tr>
+          <tr class="band"><td colspan="3">晚宴</td></tr>
+          <tr class="mark">
+            <td>6:00 PM</td>
+            <td class="mute">—（新人於 Gallery 拍照）</td>
+            <td><strong>恭候入席（喜帖時間）</strong>：麻煩幫忙邀請賓客進入宴會廳</td>
+          </tr>
+          <tr>
+            <td>6:10 PM</td>
+            <td>前往 Parlour 補妝</td>
+            <td rowspan="3">繼續迎賓，邀請賓客入席</td>
+          </tr>
+          <tr>
+            <td>6:30 PM</td>
+            <td>請在附近等候</td>
+          </tr>
+          <tr>
+            <td>7:00 PM</td>
+            <td>如有同事尚未到場，麻煩幫忙致電</td>
+          </tr>
+          <tr>
+            <td>7:05 PM</td>
+            <td>晚宴開始，請入座</td>
+            <td>晚宴開始；麻煩將利是箱收妥</td>
+          </tr>
+          <tr>
+            <td>10:05 PM</td>
+            <td>敬酒；麻煩幫忙留意裙擺</td>
+            <td class="mute">—</td>
+          </tr>
+          <tr>
+            <td>10:45 PM</td>
+            <td>送客</td>
+            <td class="mute">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="tips">
+      <div class="tip">
+        <strong>接待處收禮</strong>
+        <ol>
+          <li>請先確認封套已寫姓名</li>
+          <li>於名單上該位賓客旁打剔</li>
+          <li>隨即放入利是箱</li>
+        </ol>
+      </div>
+      <div class="tip">
+        <strong>遇到情況時</strong>
+        <ol>
+          <li>查詢座位：可參考座位表，或請酒店同事帶路。名單上沒有的賓客，請先接待，再告知 Bryan。</li>
+          <li>音響燈光如有問題：請找酒店活動部。</li>
+          <li>請看管利是箱；賓客入席後放到指定位置，並告知 Bryan。</li>
+          <li>不確定時請先問 Bryan，以免打擾新娘。</li>
+        </ol>
+      </div>
+    </div>
+  </article>
+</body>
+</html>
