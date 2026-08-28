@@ -1,0 +1,63 @@
+婚宴成長片段分鏡（打上花火 · 約 3:10）
+乙女風｜每鏡可多張｜花火主線
+
+配樂：c:\Users\bryanlai\Documents\audio-edit-hanabi\output.mp3
+單鏡放大參考圖資料夾：storyboard\shots\
+
+【多圖用法】
+- 標「可放2–3張」的鏡頭：主圖全螢幕 2–2.5 秒，其餘以溶解接上（同鏡內連播），或主圖較大、輔圖柔邊疊加 1 秒內換完。
+- 不要同一秒塞滿拼貼；乙女風以「主圖＋柔溶解」為主，拼貼僅作參考構圖。
+
+【時間軸｜對齊 3:10】
+
+A 開場
+A1  0:00–0:04   開場留白（夜空／極淡花火）          圖：shot-A1-opening.png
+A2  0:04–0:12   片名字卡（新郎名×新娘名）            圖：shot-A2-title.png
+
+B 新娘成長
+B0  0:12–0:16   段落卡「她」                         圖：shot-B0-bride-card.png
+B1  0:16–0:28   嬰幼兒　可放 2–3 張                  圖：shot-B1-bride-baby-multi.png
+B2  0:28–0:42   童年　　可放 2–3 張                  圖：shot-B2-bride-child-multi.png
+B3  0:42–0:55   青春求學　可放 2–3 張                圖：shot-B3-bride-youth-multi.png
+B4  0:55–1:08   長大單人　可放 2–3 張                圖：shot-B4-bride-adult-multi.png
+B5  1:08–1:12   白柔過渡                             圖：shot-B5-white-transition.png
+
+C 新郎成長
+C0  1:12–1:16   段落卡「他」                         圖：shot-C0-groom-card.png
+C1  1:16–1:28   嬰幼兒　可放 2–3 張                  圖：shot-C1-groom-baby-multi.png
+C2  1:28–1:42   童年　　可放 2–3 張                  圖：shot-C2-groom-child-multi.png
+C3  1:42–1:54   青春求學　可放 2–3 張                圖：shot-C3-groom-youth-multi.png
+C4  1:54–2:05   長大單人　可放 2–3 張                圖：shot-C4-groom-adult-multi.png
+C5  2:05–2:08   光點過渡・進入兩人                   圖：shot-C5-transition-together.png
+
+D 兩人｜旅行與花火主線（重點）
+D1  2:08–2:16   相遇／早期　可放 2–3 張              圖：shot-D1-meeting-multi.png
+D2  2:16–2:24   旅行開始（第一次與其他早旅行）可放 2–3 張
+                                                 圖：shot-D2-travels-start-multi.png
+D3  2:24–2:34   ★第二次旅行・花火大會　可放 2–3 張
+                （看花火、攤位、一起仰望）
+                                                 圖：shot-D3-second-trip-hanabi-multi.png
+D4  2:34–2:44   之後多次旅行 montage　可放 3–4 張
+                                                 圖：shot-D4-many-travels-multi.png
+D5  2:44–2:48   兩年日常／求婚前餘韻　1–2 張         圖：shot-D5-two-years-daily.png
+D6  2:48–3:00   ★★兩年後・花火大會求婚（高潮）可放 2–3 張
+                （對齊打上花火副歌情緒；可加極淡花火粒子）
+                                                 圖：shot-D6-proposal-hanabi-multi.png
+D7  3:00–3:03   求婚餘韻・單張微推近                 圖：shot-D7-proposal-hold.png
+
+E 收束
+E1  3:03–3:08   現在／婚紗或近況＋感謝字卡           圖：shot-E1-present-thanks.png
+E2  3:08–3:10   名字＋日期・淡出黑                   圖：shot-E2-end-card.png
+
+【字卡建議】
+A2  新郎名 × 新娘名／成長的片刻
+B0  她／新娘名
+C0  他／新郎名
+D1  然後，遇見了
+D3  （可無，或極短）第一次的花火
+D6  （可無，或極短）就像花火一樣
+E1  謝謝你們見證我們的成長
+
+【敘事弧】
+成長（新娘→新郎）→ 相遇 → 旅行 → 第二次旅行看花火 → 更多旅行 → 兩年後在花火大會求婚 → 現在
+花火出現兩次：D3 種下伏筆，D6 回收成求婚高潮，與配樂《打上花火》同題。

@@ -1,20 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Loader2 } from "lucide-react";
+import { Download, Loader2, Archive } from "lucide-react";
 import { usePhotos } from "@/hooks/usePhotos";
-import { downloadImage } from "@/utils/downloadImage";
+import { downloadImage, downloadAllPhotos } from "@/utils/downloadImage";
 import { useLanguage } from "@/contexts/LanguageContext";
 import WeddingHeader from "@/components/WeddingHeader";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import EmptyState from "@/components/EmptyState";
 import PhotoLightbox from "@/components/PhotoLightbox";
+import DownloadAllOverlay from "@/components/DownloadAllOverlay";
 
 export default function PhotoGallery() {
   const { t } = useLanguage();
   const { photos, loading, error } = usePhotos();
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [downloadingId, setDownloadingId] = useState(null);
+  const [bulkProgress, setBulkProgress] = useState(null);
+  const [isBulkDownloading, setIsBulkDownloading] = useState(false);
 
   const getErrorMessage = (err) => {
     if (err === "LOAD_FAILED") return t("errors.loadFailed");
@@ -36,8 +39,28 @@ export default function PhotoGallery() {
     }
   };
 
+  const handleDownloadAll = async () => {
+    if (isBulkDownloading || photos.length === 0) return;
+
+    setIsBulkDownloading(true);
+    setBulkProgress({ current: 0, total: photos.length, phase: "fetching" });
+
+    try {
+      await downloadAllPhotos(photos, {
+        onProgress: setBulkProgress,
+      });
+    } catch {
+      alert(t("gallery.downloadAllFailed"));
+    } finally {
+      setBulkProgress(null);
+      setIsBulkDownloading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col">
+      <DownloadAllOverlay progress={bulkProgress} />
+
       <WeddingHeader
         title={t("gallery.title")}
         subtitle={t("gallery.subtitle")}
@@ -45,8 +68,26 @@ export default function PhotoGallery() {
       />
 
       {!loading && photos.length > 0 && (
-        <div className="border-b border-luxury-parchment/60 py-3 text-center text-[10px] uppercase tracking-[0.25em] text-luxury-stone">
-          {t("gallery.count", { count: photos.length })}
+        <div className="page-content space-y-3 border-b border-luxury-parchment/60 py-4">
+          <p className="text-center text-[10px] uppercase tracking-[0.25em] text-luxury-stone">
+            {t("gallery.count", { count: photos.length })}
+          </p>
+          <button
+            type="button"
+            onClick={handleDownloadAll}
+            disabled={isBulkDownloading}
+            className="btn-luxury mx-auto flex w-full max-w-md items-center justify-center gap-2 py-3.5 disabled:opacity-50"
+          >
+            {isBulkDownloading ? (
+              <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} />
+            ) : (
+              <Archive className="h-4 w-4" strokeWidth={1.5} />
+            )}
+            <span>{t("gallery.downloadAll")}</span>
+          </button>
+          <p className="text-center text-[10px] text-luxury-stone">
+            {t("gallery.downloadAllHint")}
+          </p>
         </div>
       )}
 
@@ -79,8 +120,8 @@ export default function PhotoGallery() {
               <div className="absolute inset-0 bg-luxury-ink/0 transition-colors duration-300 group-hover:bg-luxury-ink/10" />
               <button
                 onClick={(e) => handleQuickDownload(e, photo)}
-                disabled={downloadingId === photo.id}
-                className="absolute bottom-2 right-2 flex h-7 w-7 items-center justify-center border border-luxury-gold/30 bg-luxury-charcoal/80 text-luxury-gold-light backdrop-blur-sm transition-opacity md:opacity-0 md:group-hover:opacity-100"
+                disabled={downloadingId === photo.id || isBulkDownloading}
+                className="absolute bottom-2 right-2 flex h-7 w-7 items-center justify-center border border-luxury-gold/30 bg-luxury-charcoal/80 text-luxury-gold-light backdrop-blur-sm transition-opacity disabled:opacity-50 md:opacity-0 md:group-hover:opacity-100"
                 aria-label={t("lightbox.download")}
               >
                 {downloadingId === photo.id ? (
